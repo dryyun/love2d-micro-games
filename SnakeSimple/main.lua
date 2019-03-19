@@ -230,22 +230,28 @@ function love.keypressed(key, scancode, isrepeat)
     -- 控制上下左右
     if (key == 'up' or key == 'down' or key == 'left' or key == 'right') and gameState == 2 then
         if key == "up" then
-            if currentDirection.y ~= 1 then
-                currentDirection = directions[key]
+            if currentDirection.y == 1 then
+                return
             end
         elseif key == "down" then
-            if currentDirection.y ~= -1 then
-                currentDirection = directions[key]
+            if currentDirection.y == -1 then
+                return
             end
         elseif key == "left" then
-            if currentDirection.x ~= 1 then
-                currentDirection = directions[key]
+            if currentDirection.x == 1 then
+                return
             end
         elseif key == "right" then
-            if currentDirection.x ~= -1 then
-                currentDirection = directions[key]
+            if currentDirection.x == -1 then
+                return
             end
         end
+        local setDir = directions[key]
+        local nextX, nextY = snake[1].x + setDir.x, snake[1].y + setDir.y
+        if snake[2].x == nextX and snake[2].y == nextY then
+            return
+        end
+        currentDirection = setDir
     end
 
     -- 控制暂停、开始、重新开始
